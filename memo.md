@@ -51,11 +51,32 @@
 # Docker
 
 ## command
-    コンテナ作成: docker run -d -it --name fedora1 -p 8080:80 fedora:latest
-    コンテナ起動: docker start
-    環境に入る: docker exec -it [コンナID] /bin/bash
-    環境抜ける: exit(終了してしまうので注意)
-               Ctrl + p Ctrl + q(こちらは終了しないで抜けれる)
+    コンテナ作成  : docker run -d -it --name fedora1 -p 8080:80 fedora:latest
+    コンテナ起動  : docker start
+    環境に入る    : docker exec -it [コンナID] /bin/bash
+    環境抜ける    : exit(終了してしまうので注意)
+                   Ctrl + p Ctrl + q(こちらは終了しないで抜けれる)
+
+# YAML
+    title : test
+    ip: &ip 127.0.0.1    -> & は参照元を定義
+    debug:               -> 入れ子でかける
+      flag: true
+      port: 80
+    version: "1.0"
+    test_ip: *ip         -> * は&で指定した参照先を指定できる(CloudFormationだと!Ref ip のように指定する)
+    env_ariables:
+      - A                -> - はリストを表す
+      - B
+      - C
+    bash: |              -> | 1行ごとに改行が入るように指定できる(|-で核と最後の行は開業されない)
+      #!/bin/bash
+      echo "Hello"
+      echo "World"
+
+    Type: AWS::EC2::VPC  -> AWSのCloudFormationではリソースを定義する必要がある   
+    
+
 
 
 # AWS
@@ -124,6 +145,7 @@
       Stop - Hibernate behavior
         https://aws.amazon.com/jp/blogs/news/new-hibernate-your-ec2-instances/
       
+## S3
 
 ## IAM
   AWS Identity and Access Management (IAM) は、AWS リソースへのアクセスを安全に管理するためのウェブサービスです。IAM により、誰を認証 (サインイン) し、誰にリソースの使用を承認する (アクセス権限を持たせる) かを制御します。
