@@ -35,10 +35,7 @@
 ## command
     ping: 設定したIPアドレスにデータを送って疎通できたか確認するためのもの
           ping [IPアドレス or ホスト名]
-                1                 2                                         3        4        5  
-            64 bytes from kix07s03-in-f14.1e100.net (172.217.161.206): icmp_seq=1 ttl=52 time=34.3 ms
          
-          1. 
 ## vpn
     local ---> vpn server ---> Internet
     local <--- vpn server <--- Internet
@@ -47,6 +44,12 @@
     Time to Live の略で有効期限(回数)を定義、機器を経由するたびに回数が１減る
     情報が永遠にさまよわないように定義
     DNSサーバーの場合は、IPアドレス = ドメイン名のリストを保存する時間
+
+## file server
+   ファイル共有機能に特化したサーバでオンプレミス・クラウド版がある
+   ファイルの共有・保存・バックアップなどが目的
+   Port: 基本443
+   構築の流れ
 
 # Docker
 
@@ -77,5 +80,27 @@
     Type: AWS::EC2::VPC  -> AWSのCloudFormationではリソースを定義する必要がある   
     
 
+# Todoist
 
+## Comand
 
+### get complate task
+    curl https://api.todoist.com/sync/v9/completed/get_all -H "Authorization: Bearer API TOKEN"
+
+### get projects
+     curl -X GET \\n  https://api.todoist.com/rest/v2/projects -H "Authorization: Bearer API TOKEN"
+
+# 
+
+# Merge
+## 定義
+- ルールに従って結合する(1対1のイメージ)・統合するの意味(1対複数のイメージ)
+- パージ(Purge 削除・切り離し)との対義語
+
+## 使用例
+- gitの場合だと、マージしたい親ブランチ(masterとか)に移動後、git merge BRANCH NAMEで取り込まれる
+- SVNだとtrunk(ブランチの大本)に使われ、右クリックからのメニューで出来る
+
+## Pros & Cons
+ - 調べてもGitの内容しか出てこないため、Gitの内容をまとめる時に纏める
+ 
