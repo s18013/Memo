@@ -10,3 +10,6 @@
 ソフトウェア部品を組み合わせて開発できるようにしたもの  
 インテターフェースの名前対応表  
 https://itpfdoc.hitachi.co.jp/manuals/3020/30203M0360/EM030192.HTM
+
+
+![Java Data Object](https://github.com/s18013/memo/img/java_data_object.png "Title")
