@@ -12,4 +12,4 @@
 https://itpfdoc.hitachi.co.jp/manuals/3020/30203M0360/EM030192.HTM
 
 
-![Java Data Object](https://github.com/s18013/memo/img/java_data_object.png "Title")
+![Java Data Object](https://github.com/s18013/Memo/blob/main/img/java_data_object.png "Title")
