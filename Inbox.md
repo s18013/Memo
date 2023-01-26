@@ -30,6 +30,9 @@
 
 ## directory
 
+## Middleware
+オペレーティングシステム（OS）とアプリケーションの橋渡し的な役割を担うソフトウェアのこと
+
 # Network
                                               WWW        
                                                |
