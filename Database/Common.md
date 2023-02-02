@@ -136,3 +136,14 @@ SQL部で障害が起きた場合はROLLBACKで処理をキャンセル
 </br>
 
 [参考](https://sowel.co.jp/PDF_file/SQL/Other/DB_GeneralTerm.pdf)
+
+
+### **副問合せ**
+SQLを入れ子で書くことが出来る機能
+例
+給料がJonathanよりも多い社員の選択
+```
+SELECT empno, empname, 
+FROM employees
+WHERE empsal > (SELECT sal FROM employees WHERE empname='Jonathan’)
+```
