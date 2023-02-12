@@ -113,3 +113,6 @@
 
 # サンドボックス
 プログラムやファイルを安全に実行するために、隔離した空間のこと(SVNだったらローカルに落としてくるとか)
+
+# im-select
+https://qiita.com/nouernet/items/65a9a9f822d5b1901f3bf
