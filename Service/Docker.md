@@ -2,6 +2,14 @@
 
 restart: osascript -e 'quit app "Docker"'
 
+## Command
+
+|コマンド|概要|
+|----|------|
+|docker run --name ubuntu_java -v /Users/ryunosuke/app/java:/java -it amd64/ubuntu /bin/bash|ホストOSのディレクトリをマウントしながら起動|
+
+
+
 ## Docker Swqrm
     オートレーションサービスで、名前の通り複数のクラスターに対して操作できるもの
 
