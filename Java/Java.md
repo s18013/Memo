@@ -18,16 +18,19 @@ https://itpfdoc.hitachi.co.jp/manuals/3020/30203M0360/EM030192.HTM
 ![Java Data Object](https://github.com/s18013/Memo/blob/main/img/java_data_object.png "Title")
 
 
+
 ## **Class**
 - 特定の機能をまとめた塊</br>
 - ファイル名と一致している必要がある</br>
 - この中に含まれる要素(メソッドなど)をメンバーと呼ぶ
+
 
 ## **Method**
 - 機能を表すもの<br>
 - mainは特別なメソッドでアプリ起動した時探し出されて実行される
 エントリーポイントとも呼ばれる<br>
 - {}(ブロック)で囲われている
+
 
 ## **条件分岐**
 - 条件に一致した最初のブロックのみ実行されるため、条件は範囲の狭い順でかく
@@ -46,7 +49,6 @@ switch(val) {
       break;
     case "c":
       break;
-
 }
 ```
 
@@ -59,7 +61,6 @@ var i = 3;
 var j = ++i; -> iに1加算した後に代入
 var j = i++; -> iに1加算する前に代入
 ```
-
 ### **for**
 ```
 first:
@@ -72,7 +73,6 @@ for (int i = 0(初期化式); i < 6(継続条件式); i++(増減式)) {
 
 拡張for
 for (var value(仮変数): data(配列/コレクション)) {...}
-
 ```
 <注意点>
 - ループ内のオブジェクト生成はガベージコレクション頻発でオーバーヘッドになるため注意
@@ -88,7 +88,6 @@ double i;
 for (i = 1; i < 6; i++) {...}
 ```
 
-
 ## **比較**
 - a = b + cとなる時、"=","+"のことを演算子、それ以外の変数を非演算子(オペランド)という
 - ショートカット演算子、"&&","||"の様に"&","|"を二つ並べることで左辺の変数が</br>
@@ -97,7 +96,6 @@ for (i = 1; i < 6; i++) {...}
   例　value != null && check(value)
     -> こうすることでvalueがnullだった場合右辺の計算が行われないためぬるぽ対策にもなる
   ```
-   
 
 |    |    |
 |----|----|
@@ -128,7 +126,8 @@ int[0] = 50 --> 変更できる(参照先のデータを変更しようとして
 なのでString＋finalで完全に変更できない値が作れる
 ```
 
-
+## **例外処理**
+- try文を使う、tryブロック内で確保されたリソースはtryブロックを抜けた段階で破棄される
 
 ## **データ型**
 |整数 |    |    |
@@ -181,8 +180,7 @@ int[0] = 50 --> 変更できる(参照先のデータを変更しようとして
   オブジェクトを破棄したい場合に、限定して使用する</br>
 -  Optionalを併用して使うとより安全
 
-### **配列**
-- 生成は以下の様に行う。
+## **配列**
 ```
 int[] list = new int[5] 長さのみ指定パターン
 int[] list = new int[]{1, 2, 3, 4, 5} 初期値を入れとくパターン
@@ -201,6 +199,73 @@ var list = new int[3][];
 list[0] = new int[2]
 list[1] = new int[5]
 list[2] = new int[6]
+```
+## **コレクション**
+- 配列と同じで順番にデータが格納されているもの
+- オブジェクトを扱う際には上記の配列ではなく、</br>
+  ArrayListなどのコレクションを使う
+```
+ArrayList<String> ary = new ArrayList<>();
+
+変更不可に変換
+var aryUnmodify = Collection.unmodifiableList(ary);
+
+配列　<-> コレクション(listとか)
+String[] array = new String[5];
+ArrayList arrayList = Arrays.asList(list); -> 配列からリストに変換
+String[] array2 = new String[arrrayList.size()];
+arrayList.toArray(array2); -> リストから配列に変換
+
+
+LinkedList<String> linkedList = new LinkedList<>();
+-> 要素の先頭・末尾に次の要素の情報を持たせている作りのため、値の追加・削除がArrayListよりも高速で行える
+(前後の要素の先頭末尾情報を書き換えれば良いため)。インデックスを指定しての取得は遅い
+```
+
+## **セット**
+- 重複を許さない集まりのこと
+- 集合的側面を持ち合わせる
+
+```
+HashSet<String> hsA = new HashSet<>();
+HashSet<String> hsB = new HashSet<>();
+hsA.addAll(hsB); -> 差集合的削除(A & not B)
+hsA.removeAll(hsB); -> 和集合的削除(A | B)
+hsA.retainAll(hsB); -> 積集合的削除(A & B)
+
+LinkedSet<Stirng> ls = new LinkedSet<>();
+TreeSet<String> ts = new TreeSet<>();
+
+```
+
+## **マップ**
+- key value型のデータでCollectionを継承して作られていない(拡張forがそのまま適応できない)
+```
+HashMap<String, String> hm = new HashMap<>();
+hm.put("a", "1"); -> 値のセット
+TreeMap<String, String> tm = new TreeMap<>(
+  (x, y) -> x.length() - y.length();    -> ラムダ式で並び順の判定式をオーバーライドできる
+);
+LinkedMap<String, String> lm = new LinkedMap<>();
+```
+
+## **スタッタック・キュー**
+- 基本的にはArrayDeque使ってればOK
+- 操作ログからの操作巻き戻しの時などにスタック
+```
+ArrayDeque<Integer> ad = new ArrayDeque<>(); -> スタック・キューどっちも
+
+LinkedList -> キュー
+Stack -> 昔からある非推奨のスタック
+```
+
+### **ジェネリクス(ジェネリクス構文)**
+- 汎用的なクラス・メソッド(Listとか)に\<String>のように型をつける文
+- ジェネリクスを適応することで、格納時に型チェックを行い、取り出し時に自動でキャストしてくれる(タイプセーフ)
+```
+ArrayList<String> strList = new List<>(); -> <>部分は左辺で定義されているため省略(ダイアモンド構文という)
+
+
 ```
 
 ### **ラッパークラス**
@@ -229,8 +294,9 @@ String y = x.toString()
 |str.indexOf(str,[int])|検索,対象の文字列のIndexを返す(存在しない場合は-1),intは開始位置|
 |str.contains(str,[int])|文字を含んでいるかどうか,intは開始位置|
 |str.substring(int bigin, int end)|開始位置から終了位置までの文字列を部分的抜き出す|
-|str.sprit(str,[int])|文字列を特定の文字で分割,intは回数制限|
-|String.join(CharSequence sep, str)|文字列を結合(sepは区切り文字)|
+|str.sprit(str,[int])|文字列を特定の文字で分割,intは回数制限,正規表現での分割も可能|
+|str.replaceAll(regex,str)|正規表現に一致した内容全てを置換、</br>最初だけ置換 str.replaceFirst()</br>正規表現使わない置換 str.replace()|
+|String.join(CharSequence sep, str1,str2...)|文字列を結合(sepは区切り文字)|
 |String.format(strA, strB)|strAで書式文字列(%d,%sとか)こみの文字列,strBで書式指定文字列に部分に埋め込まれる文字列|
 
 
@@ -279,6 +345,33 @@ Math.floor((0.1 + 0.7) * 10)
 7.999999の様になっており上記の様な結果が返ってきていしまう
 ```
 
+### **Pattern**
+- 正規表現で一致した部分を取り出す
+```
+String str = "XXXXXYYZZZ"
+pattern = Pattern.compile("正規表現");
+match = pattern.matcher(str)
+match.find() -> マッチした結果を.find()するたびに順番に表示(while文で回すとかする)
+```
+
+### **Date Time API**
+|   |   |
+|---|---|
+|LocalDateTime|ローカルの日時|
+|OffsetDateTime|時差情報付きの日時|
+|ZonedDateTiem|時差地域固有の情報つき日時(Azia/Tokyoとか)|
+
+```
+LocalDateTime, OffsetDateTime, ZonedDateTime
+3つとも使い方は一緒で付加情報が増える感じ
+
+LocalDateTime date = LocalDateTime.now() -> 現在の日時取得
+ZonedDateTime.of(2019,10,1,Zoned.of("Asia/Tokyo")) -> 引数から日時作成
+
+date.getYear() -> 年の取り出し
+date.format(SimpleDateFormat("yy:mm:dd")) -> 日付の書式設定
+
+```
 
 
 
@@ -312,7 +405,7 @@ Math.floor((0.1 + 0.7) * 10)
 - DNS(固有の識別名)で識別される
 
 ### **リテラル**
-- 値を格納できる値、また、値の表現方法</br>
+- 値を格納できる値、または値の表現方法</br>
   例 2進数(0b0100),16進数(0xff),文字('')、文字列("")
 
 ### **型サレフィックス**

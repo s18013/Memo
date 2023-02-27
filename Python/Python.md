@@ -13,6 +13,14 @@
 ## Error
 
 ### UnboundLocalError
-関数内でローカル変数が宣言される前にプログラムによって参照されたことが原因
+- 関数内でローカル変数が宣言される前にプログラムによって参照されたことが原因
 
-### 
+### 可変長引数
+- "**" 引数でもらった内容を一つの辞書データとしてまとめる
+```
+def create_dict(**args):
+  print(args)
+
+create_dict(first="A", second="B", third="C")
+-> {"first":"A", "second":"B", "third":"C")
+```

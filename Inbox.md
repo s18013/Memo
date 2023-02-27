@@ -116,3 +116,9 @@
 
 # im-select
 https://qiita.com/nouernet/items/65a9a9f822d5b1901f3bf
+
+# OAuth2.0
+-  リソースサーバにアクセスするためのトークンを生成する仕組み
+
+# JWT(JSON Web Token)
+- ジェイソン形式で認証情報をURLに乗せて安全に送れる様にする形式
