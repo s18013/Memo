@@ -7,6 +7,20 @@
   そうしなかった場合、以下のように引数の違うんだけどで怒られる</br>
   takes 0 positional arguments but 1 was given
 
+### **\_\_init__**
+- コンストラクター
+
+### **\_\_call__**
+- クラスをメソッドの様に使用できる様にするためのもの
+```
+class Sample():
+  def __call__(self, str):
+    print(str)
+
+Sample("Hello")
+-> Hello
+```
+
 
 ## Pytest
 

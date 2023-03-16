@@ -1,28 +1,51 @@
 # **Java**
 
-## jdk install 
-sudo apt install openjdk-8-jdk
-
-## Type
-### **Enum** 
-    列挙型で自身で内部的にインスタンス化して呼出可能な状態になる insight/column_128) [Link](https://www.modis.co.jp/candidate/)</br>
-    format: アクセス修飾子 enum 列挙名 {列挙子1, 列挙子2, ・・・}
-
-
-## **EJB**
-ソフトウェア部品を組み合わせて開発できるようにしたもの  
-インテターフェースの名前対応表  
-https://itpfdoc.hitachi.co.jp/manuals/3020/30203M0360/EM030192.HTM
-
-
-![Java Data Object](https://github.com/s18013/Memo/blob/main/img/java_data_object.png "Title")
-
-
 
 ## **Class**
+- javaのクラスは全てObjectクラスを親に持つ(extendsが定義されていない場合自動でObjectがextendsされる)
 - 特定の機能をまとめた塊</br>
 - ファイル名と一致している必要がある</br>
 - この中に含まれる要素(メソッドなど)をメンバーと呼ぶ
+
+### **定義クラス**
+- 以下のようにクラス内で再代入不可の値を定義しまとめたクラスのこと
+```
+public class Diffinition{
+  public static final String BOOK_NAME = "ONE";
+}
+```
+
+### **abstract**
+- abstractクラスでしかabstractメソッドは定義できない
+- @orverrideして実装してやらないとインスタンス化できない
+- 必ずoverrideする必要があるので中身を持たない
+- javaではabstract関係なく多重継承できないので、したい場合はインターフェイスを使用する
+
+
+### **interface**
+- implementsで実装する、implements IHoge, IFugeのように複数定義可能
+- 定義できるのはabstract, default, strictfp
+```
+public interface Sample{
+  // 変数はpublic static final扱い
+  String HELLO = "Hello"
+
+  //　インターフェース内では以下でpublic扱い
+  double getArea();    
+
+  // defaultでデフォルト処理も作成可能、@Overrideで上書き可能
+  default String hello(){
+    return HELLO;
+  }
+}
+```
+
+### **不変クラス**
+- コンストラクタ以外では外部から値を受け取らない
+- setter など持たず内部の値を変更できない
+- 不変クラスのコンストラクタに参照系の値(Listtとか)をそまま渡すと、渡し元の値に変更があった場合
+  不変クラスの値にも変化が起き不変性が失われてしまうので注意が必要
+　
 
 
 ## **Method**
@@ -30,6 +53,20 @@ https://itpfdoc.hitachi.co.jp/manuals/3020/30203M0360/EM030192.HTM
 - mainは特別なメソッドでアプリ起動した時探し出されて実行される
 エントリーポイントとも呼ばれる<br>
 - {}(ブロック)で囲われている
+```
+// 可変長引数の例、以下の様に一つ目は普通に定義してやると最低１つ以上の引数を表現できる
+pubulic void hoge(int x, int... y)
+```
+
+### **ファクトリーメソッド**
+- クラスの作成を目的としたクラス
+- インスタンスを常に生成しなくて良くなり、好きな名前で呼び出すことができる(get~みたいな)
+
+### **シングルトン**
+- １度たけ生成されてそれを使い回す様にするデザインパターン、javaにおいては以下
+  - クラス内でprivate staticでインスタンスを生成し保持する
+  - コンストラクタをprivateで定義し呼び出されない様にする
+  - public sataticで定義されたインスタンスを返すメソッドを定義する
 
 
 ## **条件分岐**
@@ -47,7 +84,7 @@ switch(val) {
     case "B":
       System.out.println("XX");
       break;
-    case "c":
+    default "c":
       break;
 }
 ```
@@ -164,7 +201,7 @@ int[0] = 50 --> 変更できる(参照先のデータを変更しようとして
 
 |文字 |    |    |
 |----|----|----|
-|char|2bit|デフォルト値 : \u0000(null)</br>文字列ではなく文字を格納するイメージ|
+|char|2byte|デフォルト値 : \u0000(null)</br>文字列ではなく文字を格納するイメージ|
 
 ### **var**
 - 型推論で自動的に型を設定してくれる
@@ -179,6 +216,12 @@ int[0] = 50 --> 変更できる(参照先のデータを変更しようとして
 - オブジェクトが存在しない場合を明示的に示したい場合や、</br>
   オブジェクトを破棄したい場合に、限定して使用する</br>
 -  Optionalを併用して使うとより安全
+```
+String str = Optional.ofNulable("Not Null");
+// nullだった場合"Null"を返す
+String str2 = str.orElse("Null");
+```
+
 
 ## **配列**
 ```
@@ -212,7 +255,7 @@ var aryUnmodify = Collection.unmodifiableList(ary);
 
 配列　<-> コレクション(listとか)
 String[] array = new String[5];
-ArrayList arrayList = Arrays.asList(list); -> 配列からリストに変換
+ArrayList arrayList = Arrays.asList(array); -> 配列からリストに変換
 String[] array2 = new String[arrrayList.size()];
 arrayList.toArray(array2); -> リストから配列に変換
 
@@ -258,6 +301,10 @@ ArrayDeque<Integer> ad = new ArrayDeque<>(); -> スタック・キューどっ�
 LinkedList -> キュー
 Stack -> 昔からある非推奨のスタック
 ```
+
+### **Enum** 
+    列挙型で自身で内部的にインスタンス化して呼出可能な状態になる insight/column_128) [Link](https://www.modis.co.jp/candidate/)</br>
+    format: アクセス修飾子 enum 列挙名 {列挙子1, 列挙子2, ・・・}
 
 ### **ジェネリクス(ジェネリクス構文)**
 - 汎用的なクラス・メソッド(Listとか)に\<String>のように型をつける文
@@ -373,6 +420,9 @@ date.format(SimpleDateFormat("yy:mm:dd")) -> 日付の書式設定
 
 ```
 
+### **Overload**
+- 名前が同じで、引数の型・並びが違うメソッドを複数定義すること
+
 
 
 ## **用語集**
@@ -387,6 +437,7 @@ date.format(SimpleDateFormat("yy:mm:dd")) -> 日付の書式設定
 ### **静的型付け**
 - 変数を宣言する際に設定した型以外の値を代入することが出来ないこと
 - 型をプログラマが明示的に設定する必要がある
+- そもそも静的の意味としては、最初に定義され変わることのないもの
 
 ### **動的型付け**
 - 変数を宣言する際に型を明示的に設定しなくても予測して設定してくれること
@@ -399,6 +450,9 @@ date.format(SimpleDateFormat("yy:mm:dd")) -> 日付の書式設定
 ### **参照型**
 - 数値や文字が格納されている場所を持っている変数のこと</br>
   list, objなど
+
+### **規定値**
+- 文字・数字・配列などを定義した際に、自動的に入る値(char \u0000, boolean falseなど)
 
 ### **データソース**
 - DBに接続する際に必要な情報(ホスト名など)をまとめたもの</br>
@@ -423,11 +477,12 @@ date.format(SimpleDateFormat("yy:mm:dd")) -> 日付の書式設定
 
 ### **クラスフィールド/クラスメソッド**
 - オブジェクトを生成せずともクラスから直接呼び出せる(静的フィールド/静的メソッドとも言う)</br>
+- staticをつけることで生成
 - 反対にオブジェクトの生成が必要なものを、**インスタンスフィールド/インスタンスメソッド**という
 
 ### **同一性/同値性**
 - 同一性は値が同一のものかどうか、javaにおいては"=="で比較される(基本型はこれで比較しても値の比較が行われる)
-- 同値性は値が同じ値かどうか、javaにおいては"equals"メソッドで比較する(参照型はこれを使えば値の比較が行われる)
+- 同値性は値が同じ値かどうか、javaにおいては"equals"メソッドで比較する
 ```
 例
 String stringA = new StringBuilder("ABC").toString();
@@ -454,13 +509,45 @@ stringA.equals(stringB)
 - switchぶんで用いられる、caseを表す"xxxx:"を指す
 
 ### **サロゲートペア**
-- Unicodeの2byteでは表現しきれなくなってきた文字についてを、4byteで表現する様にした文字のこと
+- Unicodeの2byteでは表現しきれなくなってきた文字を、4byteで表現する様にしたこと
+
+### **シグニチャ**
+- メソッドの識別情報、名前・引数の型・引数の並びで判断する
+```
+  indexOf(String str, int index)とあった場合シグニチャは以下
+  indexOf(String, int) -> 引数名は含まない
+```
+
+### **クラス変数/ローカル変数/ブロック変数**
+- クラス変数(フィールド): クラス内で定義される変数、同一クラス内のメソッドから呼び出す時はthis.で呼び出す
+- ローカル変数: メソッド内で定義されている変数
+- ブロック変数: if{}とかのブロック内のみで有効な変数
+
+### **振る舞い**
+- 振る舞い = メソッド
+
+### **Shallow Copy / Deep Copy**
+- 参照をコピーする、浅いコピー
+- 値そのものをコピーする、深いコピー
+
+
+## **パッケージ**
+- ソースの先頭でpackageで全て小文字で宣言
+- インターネットドメインを逆順にしたもの + アプリ・プロジェクト名で作成
+- java, javaxはjava開発者用なので使用しない
+- フォルダの階層構造もパッケージにあわせる必要あり
+- java.*のようなオンデマンドインポートはわかりずらいので避ける
+  - 上記の様にインポートしても名前解決の情報をインポートしてるだけなのでクラスファイルは別に肥大化しない
+  - java.util.*でインポートしたからといってサブパッケージ(regexとか)までインポートされるわけではない、パッケージ名は階層構造的に定義できるか階層的な意味を持つわけではない
 
 
 ## Command Line 
-- コンパイル時にディレクトリ配下にクラスファイルを生成する
 ```
-javac ファイル名 -d 生成先フォルダ
+コンパイル
+javac -d 生成先フォルダ フォルダ/*.java
+
+実行
+java -cp クラスファイルフォルダ クラス
 ```
 
 
@@ -475,3 +562,17 @@ javac ファイル名 -d 生成先フォルダ
 ## **コマンドライン引数**
 mainメソッドの引数argsとして受け取れる</br>
 実行マークのプルダウン>実行の構成>引数タブ>プログラムの引数
+
+
+# jdk install 
+sudo apt install openjdk-8-jdk
+
+
+# **EJB**
+ソフトウェア部品を組み合わせて開発できるようにしたもの  
+インテターフェースの名前対応表  
+https://itpfdoc.hitachi.co.jp/manuals/3020/30203M0360/EM030192.HTM
+
+
+![Java Data Object](https://github.com/s18013/Memo/blob/main/img/java_data_object.png "Title")
+
