@@ -57,14 +57,6 @@
    Port: 基本443
    構築の流れ
 
-# Docker
-
-## command
-    コンテナ作成  : docker run -d -it --name fedora1 -p 8080:80 fedora:latest
-    コンテナ起動  : docker start
-    環境に入る    : docker exec -it [コンナID] /bin/bash
-    環境抜ける    : exit(終了してしまうので注意)
-                   Ctrl + p Ctrl + q(こちらは終了しないで抜けれる)
 
 # YAML
     title : test

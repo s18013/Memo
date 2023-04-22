@@ -20,7 +20,20 @@ class Sample():
 Sample("Hello")
 -> Hello
 ```
+## pip
+- 以下のコマンドでパッケージの機能をまとめてインストール可能
+```
+元環境のパッケージエクスポート
+pip freeze > requirements.txt
 
+インポート
+pip install -r requirements.txt
+
+requirements.txtは以下のような形式
+sniffio==1.3.0
+SQLAlchemy==2.0.4
+starlette==0.25.0
+```
 
 ## Pytest
 

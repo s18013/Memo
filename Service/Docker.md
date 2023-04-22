@@ -7,6 +7,26 @@ restart: osascript -e 'quit app "Docker"'
 |コマンド|概要|
 |----|------|
 |docker run --name ubuntu_java -v /Users/ryunosuke/app/java:/java -it amd64/ubuntu /bin/bash|ホストOSのディレクトリをマウントしながら起動|
+|docker inspect postgres\|grep IPAddress|コンテナに割り当てられているIPアドレスが確認できる|
+
+
+## docker-compose
+- docker-compose build でイメージの作成
+-  docker-compose up -d で起動(イメージ作らなくても起動可能、-dはバックグラウンドの起動のこと)
+
+|yaml|概要|
+|----|------|
+|extra_host|ホスト名のマッピングを行う、DNSの様なもの|
+|depends_on|依存性の定義、起動の順番を定義できる|
+|tty|コンテナを起動しっぱなしにできる、テレタイプライターの略|
+
+## command
+    コンテナ作成  : docker run -d -it --name fedora1 -p 8080:80 fedora:latest
+    コンテナ起動  : docker start
+    環境に入る    : docker exec -it [コンナID] /bin/bash
+    環境抜ける    : exit(終了してしまうので注意)
+                   Ctrl + p Ctrl + q(こちらは終了しないで抜けれる)
+
 
 
 
