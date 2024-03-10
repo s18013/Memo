@@ -55,6 +55,33 @@ IOS, JISなどで標準規格化されたリレーショナルDBを操作する�
 
 </br>
 
+### **中間テーブル**
+多対多の関係を持つテーブルを結びつけるためのテーブル</br>
+
+例　
+|StudentID|StudentName|CourseA|CourseB|CourseC|
+|---|---|---|---|---|
+1|summer oil|math|english|science
+
+上記のテーブルだと、科目が増えるたびに列を追加しなければならない</br>
+中間テーブルを使うと以下の様になる
+
+|StudentID|StudentName|
+|---|---|
+1|summer oil
+
+|CourseID|CourseName|
+|---|---|
+1|math
+
+|id|StudentID|CourseID|
+|---|---|---|
+1|1|1
+
+上記の様に中間テーブルを使うことで、科目が増えても列を追加する必要がなくなる
+
+</br>
+
 ### **主キー**
 データベースのデータ（行、レコード）を一意に識別するための項目
 １列のみ設定できる、空にしてはいけない

@@ -26,14 +26,6 @@
 if (変数　instanceof 型)
 ```
 
-### **.getClass()**
-- オブジェクトの型を取得できる
-```
-Person p = new BusinessPerson();
-p.getClass()
--> com.sample.BusinessPerson()
-```
-
 ### **定義クラス**
 - 以下のようにクラス内で再代入不可の値を定義しまとめたクラスのこと
 ```
@@ -119,7 +111,7 @@ public interface Output{
 }
 ```
 
-### **ラムダ**
+### **Lambda**
 - 関数の参照渡しをするタイミングなどの短い利用しかない関数を
 　いちいち定義するのがめんどくさくて生まれたもの
 
@@ -139,6 +131,20 @@ Other o = new Other();
 hoge("hello", o::fuge);
 
 ```
+
+### **Stream API**
+**streamの生成**
+```
+ArrayList list = new ArrayList<String>();
+list.stream();
+
+HashMap map = new HashMap<String, String>();
+map.entrySet().stream();
+```
+**中間処理**
+
+**終端処理**
+
 
 </br>
 
@@ -454,6 +460,22 @@ int x = Integer.parseInt("2");
 文字列に変換
 String y = x.toString()
 ```
+
+## **Thread**
+---
+- Thread
+- Threadを継承して使用する
+
+|   |   |
+|---|---|
+|currentTheread()|現在実行中のスレッドを取得|
+|getID()|スレッドIDを取得|
+|isAlive()|スレッドが生存しているか|
+|join()|スレッドが終了するまでのmillis秒|
+|setPriority|スレッドの優先度を定義|
+|sleep()|スレッド実行の休止|
+
+
 
 ## **String**
 ---
