@@ -1,6 +1,7 @@
 # Pydantic
 
-## Validator
+## [Validator](https://docs.pydantic.dev/latest/concepts/validators/#field-validators)
+
 ### [必須チェック](https://docs.pydantic.dev/latest/concepts/models/#required-fields)
 以下のように定義すると、必須チェックが行われる。
 Noneは許容されない。
@@ -18,6 +19,14 @@ class MyModel(BaseModel):
 class MyModel(BaseModel):
     name: str | None = None
 ```
+
+### Annotations
+|annotation|説明|
+|-|-|
+|@field_validator("field_name")|引数に渡されたフィールドに対してアノテーションを付けた関数で検証を行います。フィールドは複数設定可能です。使用する関数に@classmethodをつけることが推奨されています。|
+|@model_validator("before OR after OR wrap")|モデル全体の検証に使用します。"before"はモデルクラスがインスタンス化される際に呼び出され、pydanticデフォルトの検証前の生データが渡されます。"after"はモデルのインスタンス後(デフォルト検証後)に呼び出されます|
+
+
 
 ## imuutable
 以下のように定義すると、新しくオブジェクトを生成しないかぎり変更不可になる。
